@@ -18,6 +18,10 @@ class Program
         } else {
             Console.WriteLine("You received an F.");
         }
-        
+        if (grade >= 70) {
+            Console.WriteLine("You passed the course.");
+        } else {
+            Console.WriteLine("Unfortunately, you did not pass the course. Study harder and you'll be great next time!");
+        }
     }
 }
