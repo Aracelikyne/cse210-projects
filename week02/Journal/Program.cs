@@ -6,7 +6,7 @@ class Program
     static void Main(string[] args)
     {
         Journal journal = new Journal();
-        Entry entry = new Entry();
+        
         PromptGenerator promptGenerator = new PromptGenerator();
         bool isRunning = true;
 
@@ -23,7 +23,9 @@ class Program
 
             if (choice == "1")
             {
+                Entry entry = new Entry();
                 string prompt = promptGenerator.GetRandomPrompt();
+                entry._promptText = prompt;
                 Console.WriteLine($"Prompt: {prompt}");
                 Console.Write("Enter your response: ");
                 entry._entryText = Console.ReadLine();
@@ -35,11 +37,17 @@ class Program
             }
             else if (choice == "3")
             {
-                journal.SaveToFile("journal.txt");
+                Console.Write("Enter the filename to save to: ");
+                string filename = Console.ReadLine();
+                journal.SaveToFile(filename);
+                Console.WriteLine($"Entries saved to {filename}");
             }
             else if (choice == "4")
             {
-                journal.LoadFromFile("journal.txt");
+                Console.Write("Enter the filename to load from: ");
+                string filename = Console.ReadLine();
+                journal.LoadFromFile(filename);
+                Console.WriteLine($"Entries loaded from {filename}");
             }
             else if (choice == "5")
             {

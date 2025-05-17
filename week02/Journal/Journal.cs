@@ -9,6 +9,7 @@ public class Journal
     public void AddEntry(Entry entry)
     {
         entry._date = currentTime.ToString("MM/dd/yyyy");
+        entry._promptText = GetRandomPrompt();
         _entries.Add(entry);
 
     }
@@ -34,8 +35,7 @@ public class Journal
     }
     public void SaveToFile(string filename)
     {
-        string filesName = "journal.txt";
-        using (StreamWriter writer = new StreamWriter(filesName))
+        using (StreamWriter writer = new StreamWriter(filename))
         {
             foreach (Entry entry in _entries)
             {
@@ -46,26 +46,16 @@ public class Journal
     }
     public void LoadFromFile(string filename)
     {
-        string filesName = "journal.txt";
-        if (File.Exists(filesName))
-        {
-            using (StreamReader reader = new StreamReader(filesName))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    string[] parts = line.Split('|');
-                    if (parts.Length == 3)
-                    {
-                        Entry entry = new Entry();
-                        entry._date = parts[0];
-                        entry._promptText = parts[1];
-                        entry._entryText = parts[2];
-                        _entries.Add(entry);
-                    }
-                }
-            }
-        }
-    }
+        string[] lines = File.ReadAllLines(filename);
 
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split('|');
+            string date = parts[0];
+            string prompt = parts[1];
+            string entry = parts[2];
+            Console.WriteLine($"Date: {date}, Prompt: {prompt}, Entry: {entry}");
+        }
+
+    }
 }
