@@ -4,12 +4,10 @@ public class Journal
 {
     public List<Entry> _entries = new List<Entry>();
     DateTime currentTime = DateTime.Now;
-    Entry entry1 = new Entry();
+    
 
     public void AddEntry(Entry entry)
     {
-        entry._date = currentTime.ToString("MM/dd/yyyy");
-        entry._promptText = GetRandomPrompt();
         _entries.Add(entry);
 
     }
@@ -21,18 +19,16 @@ public class Journal
             return;
         }
         Console.WriteLine("All journal entries:");
+        Console.WriteLine("---------------------");
         foreach (Entry entry in _entries)
         {
             entry.Display();
         }
         Console.WriteLine("End of journal entries.");
+        Console.WriteLine("-----------------------");
 
     }
-    public string GetRandomPrompt()
-    {
-        PromptGenerator promptGenerator = new PromptGenerator();
-        return promptGenerator.GetRandomPrompt();
-    }
+    
     public void SaveToFile(string filename)
     {
         using (StreamWriter writer = new StreamWriter(filename))

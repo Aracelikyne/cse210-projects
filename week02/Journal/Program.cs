@@ -23,12 +23,14 @@ class Program
 
             if (choice == "1")
             {
-                Entry entry = new Entry();
+                
                 string prompt = promptGenerator.GetRandomPrompt();
-                entry._promptText = prompt;
+                
                 Console.WriteLine($"Prompt: {prompt}");
                 Console.Write("Enter your response: ");
-                entry._entryText = Console.ReadLine();
+                string response = Console.ReadLine();
+                string date = DateTime.Now.ToString("yyyy-MM-dd");
+                Entry entry = new Entry(date, prompt, response);
                 journal.AddEntry(entry);
             }
             else if (choice == "2")
